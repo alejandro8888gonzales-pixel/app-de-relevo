@@ -1,0 +1,42 @@
+name: Compilar mi Aplicacion
+
+on:
+  push:
+    branches: [ "principal" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Descargar codigo
+      uses: actions/checkout@v4
+
+    - name: Instalar Java en el servidor
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Dar permisos al compilador
+      run: |
+        if [ -f gradlew ]; then
+          chmod +x gradlew
+        elif [ -f aplicación/gradlew ]; then
+          cd aplicación && chmod +x gradlew
+        fi
+
+    - name: Crear el archivo APK
+      run: |
+        if [ -f gradlew ]; then
+          ./gradlew assembleDebug
+        elif [ -f aplicación/gradlew ]; then
+          cd aplicación && ./gradlew assembleDebug
+        fi
+
+    - name: Buscar y guardar el APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: mi-app-colegio
+        path: |
+          **/build/outputs/apk/debug/*.apk
