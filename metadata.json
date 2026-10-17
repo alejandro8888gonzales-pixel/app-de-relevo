@@ -1,0 +1,6 @@
+{
+  "name": "MI TES & Relevo por vida",
+  "description": "Ecosistema académico inteligente para estudiantes en Honduras para administrar TES, voluntariados, horas académicas, certificados y generar portafolios.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
